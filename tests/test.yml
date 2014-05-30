@@ -1,0 +1,32 @@
+---
+- hosts: all
+  vars_files:
+    - '../defaults/main.yml'
+  tasks:
+    - include: '../tasks/main.yml'
+
+    - name: Create directory for the vhost
+      file:
+          path=/var/www/vhost/ state=directory
+          owner=root group=root mode=755
+
+    - name: Put sample file into webroot
+      copy:
+          src=index.html dest=/var/www/vhost/index.html
+          owner=root group=root mode=0644
+
+    - name: Put example vhost
+      copy:
+          src=vhost.conf dest=/etc/apache2/sites-available/vhost.conf
+          owner=root group=root mode=0644
+      notify: Reload apache
+          
+    - name: Activate example vhost
+      file:
+          src=/etc/apache2/sites-available/vhost.conf dest=/etc/apache2/sites-enabled/vhost.conf
+          state=link
+      notify: Reload apache
+
+  handlers:
+    - include: '../handlers/main.yml'
+

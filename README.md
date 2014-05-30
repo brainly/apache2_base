@@ -4,6 +4,8 @@ apache2_base
 This role provides a bare Apache2 installation on Debian Wheeze systems.
 PHP may be installed as well, if *apache2_base_php_enabled* flag is set to true.
 
+[![Build Status](https://travis-ci.org/brainly/apache2_base.svg?branch=master)](https://travis-ci.org/brainly/apache2_base)
+
 Requirements
 ------------
 
